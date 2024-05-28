@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:crud": "npx ts-node ./core/crud.ts",
-    "dev:crud": "nodemon --ext ts,tsx --exec 'npm run start:crud'",
+    "dev:crud": "nodemon --ext ts,tsx --exec \"npm run start:crud\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
