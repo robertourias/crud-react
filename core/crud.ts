@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import fs from "fs"; // ES6
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 // const fs = require("fs"); - CommonJS
-const DB_FILE_PATH = "./core/db"; 
+const DB_FILE_PATH = "./core/db";
 
 console.log("[CRUD]");
 
@@ -20,23 +21,28 @@ function create(content: string): Todo {
     done: false,
   };
 
-  const todos: Array<Todo> = [
-    ...read(),
-    todo,
-  ];
+  const todos: Array<Todo> = [...read(), todo];
 
   // salvar o content no sistema
-  fs.writeFileSync(DB_FILE_PATH, JSON.stringify({
-    todos,
-    dogs: [],
-  }, null, 2));
+  fs.writeFileSync(
+    DB_FILE_PATH,
+    JSON.stringify(
+      {
+        todos,
+        dogs: [],
+      },
+      null,
+      2
+    )
+  );
   return todo;
 }
 
 function read(): Array<Todo> {
   const dbString = fs.readFileSync(DB_FILE_PATH, "utf-8");
   const db = JSON.parse(dbString || "{}");
-  if(!db.todos) { // Fail Fast Validations
+  if (!db.todos) {
+    // Fail Fast Validations
     return [];
   }
 
@@ -48,17 +54,24 @@ function update(id: string, partialTodo: Partial<Todo>): Todo {
   const todos = read();
   todos.forEach((currentTodo) => {
     const isToUpdate = currentTodo.id === id;
-    if(isToUpdate) {
+    if (isToUpdate) {
       updatedTodo = Object.assign(currentTodo, partialTodo);
     }
   });
 
-  fs.writeFileSync(DB_FILE_PATH, JSON.stringify({
-    todos,
-  }, null, 2));
+  fs.writeFileSync(
+    DB_FILE_PATH,
+    JSON.stringify(
+      {
+        todos,
+      },
+      null,
+      2
+    )
+  );
 
-  if(!updatedTodo) {
-    throw new Error("Please, provide another ID!")
+  if (!updatedTodo) {
+    throw new Error("Please, provide another ID!");
   }
 
   return updatedTodo;
@@ -67,8 +80,8 @@ function update(id: string, partialTodo: Partial<Todo>): Todo {
 function updateContentById(id: string, content: string): Todo {
   return update(id, {
     content,
-  })
-} 
+  });
+}
 
 function CLEAR_DB() {
   fs.writeFileSync(DB_FILE_PATH, "");
@@ -83,5 +96,5 @@ const terceiraTodo = create("Segunda TODO");
 //   content: "Atualizada!",
 //   done: true,
 // });
-updateContentById(terceiraTodo.id, "Atualizada!")
+updateContentById(terceiraTodo.id, "Atualizada!");
 console.log(read());
