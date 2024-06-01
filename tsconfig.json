@@ -5,7 +5,9 @@
     "paths": {
       "@ui/*": [
         "src/ui/*"
-      ]
+      ],
+      "@db-crud-todo": ["core/crud.ts"],
+      "@server/*": ["src/server/*"]
     },
     "target": "es2016",
     "module": "commonjs", /* Specify what module code is generated. */// "rootDir": "./",                                  /* Specify the root folder within your source files. */
