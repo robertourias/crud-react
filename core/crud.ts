@@ -90,11 +90,6 @@ function CLEAR_DB() {
 // [SIMULATION]
 CLEAR_DB();
 create("Primeira TODO");
-create("Primeira TODO");
-const terceiraTodo = create("Segunda TODO");
-// update(terceiraTodo.id, {
-//   content: "Atualizada!",
-//   done: true,
-// });
+create("Segunda TODO");
+const terceiraTodo = create("Terceira TODO");
 updateContentById(terceiraTodo.id, "Atualizada!");
-// console.log(read());
