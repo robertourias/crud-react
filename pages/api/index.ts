@@ -6,5 +6,5 @@ export default function handler(
 ) {
   // eslint-disable-next-line no-console
   console.log(request.headers);
-  response.status(200).json({ message: "Retorno da API" });
+  response.status(200).json({ message: "Funcionando normalmente" });
 }

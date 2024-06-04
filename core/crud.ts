@@ -4,8 +4,6 @@ import { v4 as uuid } from "uuid";
 // const fs = require("fs"); - CommonJS
 const DB_FILE_PATH = "./core/db";
 
-console.log("[CRUD]");
-
 interface Todo {
   id: string;
   date: string;
@@ -28,8 +26,7 @@ function create(content: string): Todo {
     DB_FILE_PATH,
     JSON.stringify(
       {
-        todos,
-        dogs: [],
+        todos
       },
       null,
       2

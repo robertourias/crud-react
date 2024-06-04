@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { GlobalStyles } from "@ui/theme/GlobalStyles";
 import { todoController } from "@ui/controller/todo";
 
@@ -7,16 +7,18 @@ const bg = "/bg.jpeg"; // inside public folder
 
 interface HomeTodo {
   id: string;
-  date?: string;
   content: string;
-  done?: boolean;
 }
 
 function HomePage() {
-  const [todos, setTodos] = useState<HomeTodo[]>([]);
+  const [page, setPage] = React.useState(1);
+  const [todos, setTodos] = React.useState<HomeTodo[]>([]);
 
-  useEffect(() => {
-    todoController.get().then((todos: any) => setTodos(todos));
+  // Load infos onload
+  React.useEffect(() => {
+    todoController.get({ page }).then(({ todos }) => {
+      setTodos(todos);
+    });
   }, []);
 
   return (
@@ -56,14 +58,14 @@ function HomePage() {
           </thead>
 
           <tbody>
-            {todos.map((currentTodo) => {
+            {todos.map((todo) => {
               return (
-                <tr key={currentTodo.id}>
+                <tr key={todo.id}>
                   <td>
                     <input type="checkbox" />
                   </td>
-                  <td>{currentTodo.id.substring(0, 4)}</td>
-                  <td>{currentTodo.content}</td>
+                  <td>{todo.id.substring(0, 4)}</td>
+                  <td>{todo.content}</td>
                   <td align="right">
                     <button data-type="delete">Apagar</button>
                   </td>
@@ -71,22 +73,22 @@ function HomePage() {
               );
             })}
 
-            <tr>
+            {/* <tr>
               <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                 Carregando...
               </td>
-            </tr>
+            </tr> */}
 
-            <tr>
+            {/* <tr>
               <td colSpan={4} align="center">
                 Nenhum item encontrado
               </td>
-            </tr>
+            </tr> */}
 
             <tr>
               <td colSpan={4} align="center" style={{ textAlign: "center" }}>
-                <button data-type="load-more">
-                  Carregar mais{" "}
+                <button data-type="load-more" onClick={() => setPage(page + 1)}>
+                  Página {page}, Carregar mais{" "}
                   <span
                     style={{
                       display: "inline-block",
