@@ -22,6 +22,7 @@ module.exports = {
       version: "detect",
     },
   },
+  semi: ["error", "never", "before-newline"],
   ignorePatterns: ["node_modules/", "_explicacoes/"],
   // Cherry of the Cake
   rules: {
