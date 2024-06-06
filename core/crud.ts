@@ -26,7 +26,7 @@ function create(content: string): Todo {
     DB_FILE_PATH,
     JSON.stringify(
       {
-        todos
+        todos,
       },
       null,
       2
@@ -86,7 +86,25 @@ function CLEAR_DB() {
 
 // [SIMULATION]
 CLEAR_DB();
-create("Primeira TODO");
-create("Segunda TODO");
-const terceiraTodo = create("Terceira TODO");
+create("Primeiro TODO");
+create("Segundo TODO");
+create("Terceiro TODO");
+create("Quarto TODO");
+create("Quinto TODO");
+create("Sexto TODO");
+create("Setimo TODO");
+create("Oitavo TODO");
+create("Nono TODO");
+create("Décimo Décimo TODO");
+create("Décimo Primeiro TODO");
+create("Décimo Segundo TODO");
+create("Décimo Terceiro TODO");
+create("Décimo Quarto TODO");
+create("Décimo Quinto TODO");
+create("Décimo Sexto TODO");
+create("Décimo Setimo TODO");
+create("Décimo Oitavo TODO");
+create("Décimo Nono TODO");
+
+const terceiraTodo = create("Criada");
 updateContentById(terceiraTodo.id, "Atualizada!");
