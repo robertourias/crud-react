@@ -38,7 +38,7 @@ function HomePage() {
           initialLoadComplete.current = true;
         });
     }
-  }, []); // Colchetes vazio rodano load do componente
+  }, []); // Colchetes vazio rodando load do componente
 
   return (
     <main>

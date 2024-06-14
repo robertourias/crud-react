@@ -7,7 +7,7 @@ export default function handler(
 ) {
   if (request.method === "GET") {
     todoController.get(request, response);
-    return;
+    return
   }
 
   return response.status(405).json({ message: "Method not allowed" });

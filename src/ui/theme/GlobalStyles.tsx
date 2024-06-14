@@ -69,7 +69,7 @@ export function GlobalStyles({ themeName }: { themeName?: ThemeName }) {
           --color-basic-light: #fff;
           --color-basic-dark: #000;
           --color-basic-transparent: transparent;
-          ${Object.keys(theme.neutral)
+          ${Object.keys(theme.primary)
             .map(
               (key) => `
             --color-primary-${key}: ${
