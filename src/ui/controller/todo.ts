@@ -1,4 +1,5 @@
 import { todoRepository } from "@ui/repository/todo";
+import { date } from "zod";
 
 interface TodosControllerGetParams {
   page: number;
@@ -24,7 +25,30 @@ function filterTodosByContent<Todo>(
   return homeTodos;
 }
 
+interface TodosControlleCreateParams {
+  content?: string
+  onError: () => void
+  onSuccess: (todo: any) => void
+}
+function create({content, onError, onSuccess} : TodosControlleCreateParams) {
+  // Fast fail
+  if(!content) {
+    onError()
+    return
+  }
+
+  // Vai vir do repositório
+  const todo = {
+    id: "12345",
+    content,
+    date: new Date(),
+    done: false,
+  }
+  onSuccess(todo)
+}
+
 export const todoController = {
   get,
   filterTodosByContent,
+  create,
 };
