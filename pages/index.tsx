@@ -24,7 +24,7 @@ function HomePage() {
   );
   const hasMorePages = totalPages > page;
   const hasNoTodos = homeTodos.length === 0 && !isLoading;
-
+  
   // Load infos onload
   React.useEffect(() => {
     if (!initialLoadComplete.current) {
@@ -86,6 +86,7 @@ function HomePage() {
             type="text"
             placeholder="Filtrar lista atual, ex: Dentista"
             onChange={function handleSearch(event) {
+              
               setSearch(event.target.value);
             }}
           />
