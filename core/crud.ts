@@ -4,6 +4,8 @@ import { v4 as uuid } from "uuid";
 // const fs = require("fs"); - CommonJS
 const DB_FILE_PATH = "./core/db";
 
+type UUID = string;
+
 interface Todo {
   id: string;
   date: string;
@@ -78,6 +80,28 @@ function updateContentById(id: string, content: string): Todo {
   return update(id, {
     content,
   });
+}
+
+export function deleteById(id: UUID) {
+  const todos = read();
+
+  const todosWithoutOne = todos.filter((todo) => {
+    if (id === todo.id) {
+      return false;
+    }
+    return true;
+  });
+
+  fs.writeFileSync(
+    DB_FILE_PATH,
+    JSON.stringify(
+      {
+        todos: todosWithoutOne,
+      },
+      null,
+      2
+    )
+  );
 }
 
 function CLEAR_DB() {
