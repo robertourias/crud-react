@@ -8,10 +8,12 @@ const bg = "/bg.jpeg"; // inside public folder
 interface HomeTodo {
   id: string;
   content: string;
+  done: boolean;
 }
 
 function HomePage() {
   const initialLoadComplete = useRef(false);
+  const [newTodoContent, setNewTodoContent] = React.useState("");
   const [totalPages, setTotalPages] = React.useState(0);
   const [page, setPage] = React.useState(1);
   const [search, setSearch] = React.useState("");
@@ -23,7 +25,7 @@ function HomePage() {
   );
   const hasMorePages = totalPages > page;
   const hasNoTodos = homeTodos.length === 0 && !isLoading;
-
+  
   // Load infos onload
   React.useEffect(() => {
     if (!initialLoadComplete.current) {
@@ -38,7 +40,7 @@ function HomePage() {
           initialLoadComplete.current = true;
         });
     }
-  }, []); // Colchetes vazio rodano load do componente
+  }, []); // Colchetes vazio rodando load do componente
 
   return (
     <main>
@@ -51,8 +53,28 @@ function HomePage() {
         <div className="typewriter">
           <h1>O que fazer hoje?</h1>
         </div>
-        <form>
-          <input type="text" placeholder="Correr, Estudar..." />
+        <form onSubmit={(event) => {
+          event.preventDefault()
+          todoController.create({
+            content: newTodoContent,
+            onSuccess(todo: HomeTodo) {
+              setTodos((oldTodos) => {
+                return [todo, ...oldTodos]
+              })
+              setNewTodoContent("")
+            },
+            onError() {
+              alert("Você precisa ter um conteúdo para criar um TODO")
+            },
+          })
+        }}>
+          <input 
+            type="text" 
+            placeholder="Correr, Estudar..." 
+            value={newTodoContent} 
+            onChange={function newTodoHandler(event) {
+              setNewTodoContent(event.target.value)
+            }} />
           <button type="submit" aria-label="Adicionar novo item">
             +
           </button>
@@ -65,6 +87,7 @@ function HomePage() {
             type="text"
             placeholder="Filtrar lista atual, ex: Dentista"
             onChange={function handleSearch(event) {
+              
               setSearch(event.target.value);
             }}
           />
@@ -87,12 +110,60 @@ function HomePage() {
               return (
                 <tr key={todo.id}>
                   <td>
-                    <input type="checkbox" />
+                  <input
+                      type="checkbox"
+                      checked={todo.done}
+                      onChange={function handleToggle() {
+                        todoController.toggleDone({
+                          id: todo.id,
+                          onError() {
+                            alert("Falha ao atualizar a TODO :(");
+                          },
+                          updateTodoOnScreen() {
+                            setTodos((currentTodos) => {
+                              return currentTodos.map((currentTodo) => {
+                                if (currentTodo.id === todo.id) {
+                                  return {
+                                    ...currentTodo,
+                                    done: !currentTodo.done,
+                                  };
+                                }
+                                return currentTodo; 
+                              });
+                            });
+                          },
+                        });
+                      }}
+                    />
                   </td>
                   <td>{todo.id.substring(0, 4)}</td>
-                  <td>{todo.content}</td>
+                  <td>
+                    {!todo.done && todo.content}
+                    {todo.done && <s>{todo.content}</s>}
+                  </td>
                   <td align="right">
-                    <button data-type="delete">Apagar</button>
+                  <button
+                      data-type="delete"
+                      onClick={function handleClick() {
+                        todoController
+                          .deleteById(todo.id)
+                          .then(() => {
+                            // UI method to delete
+                            setTodos((currentTodos) => {
+                              return currentTodos.filter((currentTodo) => {
+                                if (currentTodo.id === todo.id) return false;
+
+                                return true;
+                              });
+                            });
+                          })
+                          .catch(() => {
+                            console.error("Failed to delete");
+                          });
+                      }}
+                    >
+                      Apagar
+                    </button>
                   </td>
                 </tr>
               );

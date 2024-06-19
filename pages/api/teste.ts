@@ -11,6 +11,7 @@ export default function handler(
     },
   ];
 
+  // Fail fast
   if (request.method !== "GET") {
     return response.status(405).json({ message: "Method not allowed" });
   }

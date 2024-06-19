@@ -1,3 +1,6 @@
+import { Todo } from "@ui/schema/todo";
+import { z as schema } from "zod";
+
 import { todoRepository } from "@ui/repository/todo";
 
 interface TodosControllerGetParams {
@@ -24,7 +27,61 @@ function filterTodosByContent<Todo>(
   return homeTodos;
 }
 
+interface TodosControllerCreateParams { 
+  content?: string
+  onError: (customMessage?: string) => void
+  onSuccess: (todo: Todo) => void
+}
+function create({content, onError, onSuccess} : TodosControllerCreateParams) {
+  // Fast fail
+  const parsedParams = schema.string().nonempty().safeParse(content);
+  if (!parsedParams.success) {
+    onError()
+    return
+  }
+
+  todoRepository
+    .createByContent(parsedParams.data)
+    .then((newTodo) => {
+      onSuccess(newTodo);
+    })
+    .catch(() => {
+      onError();
+    });
+}
+
+interface TodoControllerToggleDoneParams {
+  id: string;
+  updateTodoOnScreen: () => void;
+  onError: () => void;
+}
+function toggleDone({
+  id,
+  updateTodoOnScreen,
+  onError,
+}: TodoControllerToggleDoneParams) {
+  // Optmistic Update
+  // updateTodoOnScreen();
+
+  todoRepository
+    .toggleDone(id)
+    .then(() => {
+      // Update Real
+      updateTodoOnScreen();
+    })
+    .catch(() => {
+      onError();
+    });
+}
+
+async function deleteById(todoId: string): Promise<void> {
+  await todoRepository.deleteById(todoId);
+}
+
 export const todoController = {
   get,
   filterTodosByContent,
+  create,
+  toggleDone,
+  deleteById,
 };
