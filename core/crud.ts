@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import fs from 'fs'; // ES6
-import { v4 as uuid } from 'uuid';
+import fs from "fs"; // ES6
+import { v4 as uuid } from "uuid";
 // const fs = require("fs"); - CommonJS
-const DB_FILE_PATH = './core/db';
+const DB_FILE_PATH = "./core/db";
 
 type UUID = string;
 
@@ -38,8 +38,8 @@ export function create(content: string): Todo {
 }
 
 export function read(): Array<Todo> {
-  const dbString = fs.readFileSync(DB_FILE_PATH, 'utf-8');
-  const db = JSON.parse(dbString || '{}');
+  const dbString = fs.readFileSync(DB_FILE_PATH, "utf-8");
+  const db = JSON.parse(dbString || "{}");
   if (!db.todos) {
     // Fail Fast Validations
     return [];
@@ -70,7 +70,7 @@ export function update(id: string, partialTodo: Partial<Todo>): Todo {
   );
 
   if (!updatedTodo) {
-    throw new Error('Please, provide another ID!');
+    throw new Error("Please, provide another ID!");
   }
 
   return updatedTodo;
@@ -105,30 +105,30 @@ export function deleteById(id: UUID) {
 }
 
 export function CLEAR_DB() {
-  fs.writeFileSync(DB_FILE_PATH, '');
+  fs.writeFileSync(DB_FILE_PATH, "");
 }
 
 // [SIMULATION]
 CLEAR_DB();
-create('Primeiro TODO');
-create('Segundo TODO');
-create('Terceiro TODO');
-create('Quarto TODO');
-create('Quinto TODO');
-create('Sexto TODO');
-create('Setimo TODO');
-create('Oitavo TODO');
-create('Nono TODO');
-create('Décimo Décimo TODO');
-create('Décimo Primeiro TODO');
-create('Décimo Segundo TODO');
-create('Décimo Terceiro TODO');
-create('Décimo Quarto TODO');
-create('Décimo Quinto TODO');
-create('Décimo Sexto TODO');
-create('Décimo Setimo TODO');
-create('Décimo Oitavo TODO');
-create('Décimo Nono TODO');
+create("Primeiro TODO");
+create("Segundo TODO");
+create("Terceiro TODO");
+create("Quarto TODO");
+create("Quinto TODO");
+create("Sexto TODO");
+create("Setimo TODO");
+create("Oitavo TODO");
+create("Nono TODO");
+create("Décimo Décimo TODO");
+create("Décimo Primeiro TODO");
+create("Décimo Segundo TODO");
+create("Décimo Terceiro TODO");
+create("Décimo Quarto TODO");
+create("Décimo Quinto TODO");
+create("Décimo Sexto TODO");
+create("Décimo Setimo TODO");
+create("Décimo Oitavo TODO");
+create("Décimo Nono TODO");
 
-const terceiraTodo = create('Criada');
-updateContentById(terceiraTodo.id, 'Atualizada!');
+const terceiraTodo = create("Criada");
+updateContentById(terceiraTodo.id, "Atualizada!");

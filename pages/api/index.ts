@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(
   request: NextApiRequest,
@@ -6,5 +6,5 @@ export default function handler(
 ) {
   // eslint-disable-next-line no-console
   console.log(request.headers);
-  response.status(200).json({ message: 'Funcionando normalmente' });
+  response.status(200).json({ message: "Funcionando normalmente" });
 }

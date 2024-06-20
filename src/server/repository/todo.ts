@@ -3,8 +3,8 @@ import {
   create,
   update,
   deleteById as dbDeleteById,
-} from '@db-crud-todo';
-import { HttpNotFoundError } from '@server/infra/errors';
+} from "@db-crud-todo";
+import { HttpNotFoundError } from "@server/infra/errors";
 
 interface TodoRepositoryGetParams {
   page?: number;

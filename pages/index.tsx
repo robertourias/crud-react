@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
-import { GlobalStyles } from '@ui/theme/GlobalStyles';
-import { todoController } from '@ui/controller/todo';
+import React, { useRef } from "react";
+import { GlobalStyles } from "@ui/theme/GlobalStyles";
+import { todoController } from "@ui/controller/todo";
 
 // const bg = "https://mariosouto.com/cursos/crudcomqualidade/bg";
-const bg = '/bg.jpeg'; // inside public folder
+const bg = "/bg.jpeg"; // inside public folder
 
 interface HomeTodo {
   id: string;
@@ -13,10 +13,10 @@ interface HomeTodo {
 
 function HomePage() {
   const initialLoadComplete = useRef(false);
-  const [newTodoContent, setNewTodoContent] = React.useState('');
+  const [newTodoContent, setNewTodoContent] = React.useState("");
   const [totalPages, setTotalPages] = React.useState(0);
   const [page, setPage] = React.useState(1);
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState("");
   const [todos, setTodos] = React.useState<HomeTodo[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const homeTodos = todoController.filterTodosByContent<HomeTodo>(
@@ -62,10 +62,10 @@ function HomePage() {
                 setTodos((oldTodos) => {
                   return [todo, ...oldTodos];
                 });
-                setNewTodoContent('');
+                setNewTodoContent("");
               },
               onError() {
-                alert('Você precisa ter um conteúdo para criar um TODO');
+                alert("Você precisa ter um conteúdo para criar um TODO");
               },
             });
           }}
@@ -120,7 +120,7 @@ function HomePage() {
                         todoController.toggleDone({
                           id: todo.id,
                           onError() {
-                            alert('Falha ao atualizar a TODO :(');
+                            alert("Falha ao atualizar a TODO :(");
                           },
                           updateTodoOnScreen() {
                             setTodos((currentTodos) => {
@@ -161,7 +161,7 @@ function HomePage() {
                             });
                           })
                           .catch(() => {
-                            console.error('Failed to delete');
+                            console.error("Failed to delete");
                           });
                       }}
                     >
@@ -174,7 +174,7 @@ function HomePage() {
 
             {isLoading && (
               <tr>
-                <td colSpan={4} align="center" style={{ textAlign: 'center' }}>
+                <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   Carregando...
                 </td>
               </tr>
@@ -190,7 +190,7 @@ function HomePage() {
 
             {hasMorePages && (
               <tr>
-                <td colSpan={4} align="center" style={{ textAlign: 'center' }}>
+                <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   <button
                     data-type="load-more"
                     onClick={() => {
@@ -209,12 +209,12 @@ function HomePage() {
                         });
                     }}
                   >
-                    Página {page}, Carregar mais{' '}
+                    Página {page}, Carregar mais{" "}
                     <span
                       style={{
-                        display: 'inline-block',
-                        marginLeft: '4px',
-                        fontSize: '1.2em',
+                        display: "inline-block",
+                        marginLeft: "4px",
+                        fontSize: "1.2em",
                       }}
                     >
                       ↓
