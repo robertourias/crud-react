@@ -63,6 +63,7 @@ export function GlobalStyles({ themeName }: { themeName?: ThemeName }) {
   };
 
   return (
+    // eslint-disable-next-line react/no-unknown-property
     <style jsx global>
       {`
         :root {

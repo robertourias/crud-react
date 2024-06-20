@@ -15,6 +15,7 @@ module.exports = {
     "no-only-tests",
   ],
   extends: [
+    "prettier",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
@@ -36,6 +37,7 @@ module.exports = {
   // Cherry of the Cake
   rules: {
     "no-only-tests/no-only-tests": "error",
+    "prettier/prettier": "error",
     "no-console": ["error", { allow: ["warn", "error"] }],
     "react/no-unknown-property": ["error", { ignore: ["jsx", "global"] }],
   },
