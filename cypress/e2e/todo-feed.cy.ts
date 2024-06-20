@@ -32,7 +32,7 @@ describe("/ - Todos feed", () => {
     cy.get(buttonAddTodo).click();
 
     // 5 - Checar se na página surgiu um novo elemento
-    cy.wait("@createTodo").then((_) => {
+    cy.wait("createTodo").then((_) => {
       cy.get("table").contains(textInput);
     });
 
