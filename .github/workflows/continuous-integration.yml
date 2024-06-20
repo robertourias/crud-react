@@ -1,35 +1,40 @@
 name: "[CI] Continuous Integration"
 
-# Sempre que tiver um commit ou um PR for aberto
+# Whenever there's a push, pull request opened, or pull request synchronized
 on:
+  push: {}
   pull_request:
     types: [opened, synchronize]
 
-jobs: 
-  lint: 
+jobs:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      ## [Common_CI_Steps]
+      ## [Common CI Steps]
       - uses: actions/checkout@v3
-        with:
-          node-version: 20.12.2
       ## =================
-      - name: "Debug"
-        run: |
-          ls -la
-          echo "Segundo comando de debug"
+
+      - name: "Install Node.js (latest stable)"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'node'  # Installs the latest stable version
+
       - name: "Install Dependencies"
-        run: "npm install"
+        run: npm install
+
       - name: "Lint"
-        run: "npm run lint"
+        run: npm run lint
+
   test:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node18.12.0-chrome107
+    container: cypress/browsers:node16-chrome109  # Latest Cypress image with a compatible Node.js version
     steps:
-      ## [Common_CI_Steps]
+      ## [Common CI Steps]
       - uses: actions/checkout@v3
       ## =================
+
       - name: "Install Dependencies"
-        run: "npm install"
+        run: npm install
+
       - name: "Test - Cypress"
-        run: "npm run test"
+        run: npm run test
