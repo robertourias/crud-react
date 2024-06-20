@@ -27,17 +27,17 @@ function filterTodosByContent<Todo>(
   return homeTodos;
 }
 
-interface TodosControllerCreateParams { 
-  content?: string
-  onError: (customMessage?: string) => void
-  onSuccess: (todo: Todo) => void
+interface TodosControllerCreateParams {
+  content?: string;
+  onError: (customMessage?: string) => void;
+  onSuccess: (todo: Todo) => void;
 }
-function create({content, onError, onSuccess} : TodosControllerCreateParams) {
+function create({ content, onError, onSuccess }: TodosControllerCreateParams) {
   // Fast fail
   const parsedParams = schema.string().nonempty().safeParse(content);
   if (!parsedParams.success) {
-    onError()
-    return
+    onError();
+    return;
   }
 
   todoRepository

@@ -1,4 +1,9 @@
-import { read, create, update, deleteById as dbDeleteById, } from "@db-crud-todo";
+import {
+  read,
+  create,
+  update,
+  deleteById as dbDeleteById,
+} from "@db-crud-todo";
 import { HttpNotFoundError } from "@server/infra/errors";
 
 interface TodoRepositoryGetParams {
@@ -17,7 +22,7 @@ function get({
 }: TodoRepositoryGetParams = {}): TodoRepositoryGetOutput {
   const currentPage = page || 1;
   const currentLimit = limit || 10;
-  const ALL_TODOS = read().reverse(); 
+  const ALL_TODOS = read().reverse();
 
   // Paginação
   const startIndex = (currentPage - 1) * currentLimit;
@@ -33,9 +38,9 @@ function get({
 }
 
 async function createByContent(content: string): Promise<Todo> {
-  const newTodo = create(content)
+  const newTodo = create(content);
 
-  return newTodo
+  return newTodo;
 }
 
 async function toggleDone(id: string): Promise<Todo> {

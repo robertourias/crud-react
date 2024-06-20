@@ -25,7 +25,7 @@ function HomePage() {
   );
   const hasMorePages = totalPages > page;
   const hasNoTodos = homeTodos.length === 0 && !isLoading;
-  
+
   // Load infos onload
   React.useEffect(() => {
     if (!initialLoadComplete.current) {
@@ -53,29 +53,32 @@ function HomePage() {
         <div className="typewriter">
           <h1>O que fazer hoje?</h1>
         </div>
-        <form onSubmit={(event) => {
-          event.preventDefault()
-          todoController.create({
-            content: newTodoContent,
-            onSuccess(todo: HomeTodo) {
-              setTodos((oldTodos) => {
-                return [todo, ...oldTodos]
-              })
-              setNewTodoContent("")
-            },
-            onError() {
-              alert("Você precisa ter um conteúdo para criar um TODO")
-            },
-          })
-        }}>
-          <input 
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            todoController.create({
+              content: newTodoContent,
+              onSuccess(todo: HomeTodo) {
+                setTodos((oldTodos) => {
+                  return [todo, ...oldTodos];
+                });
+                setNewTodoContent("");
+              },
+              onError() {
+                alert("Você precisa ter um conteúdo para criar um TODO");
+              },
+            });
+          }}
+        >
+          <input
             name="add-todo"
-            type="text" 
-            placeholder="Correr, Estudar..." 
-            value={newTodoContent} 
+            type="text"
+            placeholder="Correr, Estudar..."
+            value={newTodoContent}
             onChange={function newTodoHandler(event) {
-              setNewTodoContent(event.target.value)
-            }} />
+              setNewTodoContent(event.target.value);
+            }}
+          />
           <button type="submit" aria-label="Adicionar novo item">
             +
           </button>
@@ -88,7 +91,6 @@ function HomePage() {
             type="text"
             placeholder="Filtrar lista atual, ex: Dentista"
             onChange={function handleSearch(event) {
-              
               setSearch(event.target.value);
             }}
           />
@@ -111,7 +113,7 @@ function HomePage() {
               return (
                 <tr key={todo.id}>
                   <td>
-                  <input
+                    <input
                       type="checkbox"
                       checked={todo.done}
                       onChange={function handleToggle() {
@@ -129,7 +131,7 @@ function HomePage() {
                                     done: !currentTodo.done,
                                   };
                                 }
-                                return currentTodo; 
+                                return currentTodo;
                               });
                             });
                           },
@@ -143,7 +145,7 @@ function HomePage() {
                     {todo.done && <s>{todo.content}</s>}
                   </td>
                   <td align="right">
-                  <button
+                    <button
                       data-type="delete"
                       onClick={function handleClick() {
                         todoController

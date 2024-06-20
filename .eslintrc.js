@@ -18,9 +18,9 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
     "plugin:chai-friendly/recommended",
     "plugin:cypress/recommended",
+    "plugin:prettier/recommended",
   ],
   overrides: [],
   parserOptions: {
@@ -32,7 +32,6 @@ module.exports = {
       version: "detect",
     },
   },
-  semi: ["error", "never", "before-newline"],
   ignorePatterns: ["node_modules/", "_explicacoes/"],
   // Cherry of the Cake
   rules: {
