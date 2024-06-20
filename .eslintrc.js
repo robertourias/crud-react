@@ -43,6 +43,8 @@ module.exports = {
       {
         singleQuote: true,
         parser: 'flow',
+        useTabs: false,
+        tabWidth: 2,
       },
     ],
   },
