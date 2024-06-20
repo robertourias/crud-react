@@ -119,6 +119,7 @@ function parseTodosFromServer(responseBody: unknown): {
           throw new Error('Invalid todo from API');
         }
 
+        // eslint-disable-next-line prettier/prettier
         const { id, content, done, date } = todo as {
           id: string;
           content: string;

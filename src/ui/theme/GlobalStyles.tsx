@@ -53,6 +53,7 @@ const pallete = {
     x900: '#1F2933',
   },
 };
+// eslint-disable-next-line prettier/prettier
 type ThemeName = keyof typeof pallete;
 
 export function GlobalStyles({ themeName }: { themeName?: ThemeName }) {
