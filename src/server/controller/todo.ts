@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { z as schema } from "zod";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { z as schema } from 'zod';
 
-import { todoRepository } from "@server/repository/todo";
-import { HttpNotFoundError } from "@server/infra/errors";
+import { todoRepository } from '@server/repository/todo';
+import { HttpNotFoundError } from '@server/infra/errors';
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
   const query = req.query;
@@ -12,7 +12,7 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
   if (query.page && isNaN(page)) {
     res.status(400).json({
       error: {
-        message: "`page` must be a number",
+        message: '`page` must be a number',
       },
     });
     return;
@@ -20,7 +20,7 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
   if (query.limit && isNaN(limit)) {
     res.status(400).json({
       error: {
-        message: "`limit` must be a number",
+        message: '`limit` must be a number',
       },
     });
     return;
@@ -48,7 +48,7 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
   if (!body.success) {
     res.status(400).json({
       error: {
-        message: "You need to provide a content to create a TODO",
+        message: 'You need to provide a content to create a TODO',
         description: body.error.issues,
       },
     });
@@ -67,10 +67,10 @@ async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
   const todoId = req.query.id;
 
   // Fail Fast Validation
-  if (!todoId || typeof todoId !== "string") {
+  if (!todoId || typeof todoId !== 'string') {
     res.status(400).json({
       error: {
-        message: "You must to provide a string ID",
+        message: 'You must to provide a string ID',
       },
     });
     return;
