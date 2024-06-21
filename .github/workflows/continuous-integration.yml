@@ -1,0 +1,38 @@
+name: "[CI] Continuous Integration"
+
+# Sempre que tiver um commit ou um PR for aberto
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs: 
+  lint: 
+    runs-on: ubuntu-latest
+    steps:
+      ## [Common_CI_Steps]
+      - uses: actions/checkout@v3
+      ## =================
+      - name: "Debug"
+        run: |
+          ls -la
+          echo "Segundo comando de debug"
+      - name: "Install Dependencies"
+        run: "npm install"
+      - name: "Lint"
+        run: "npm run lint"
+  test:
+    runs-on: ubuntu-latest
+    # container: cypress/browsers:node18.12.0-chrome107
+    # container: cypress/browsers:latest
+    container: cypress/browsers:node-20.14.0-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
+    steps:
+      ## [Common_CI_Steps]
+      - uses: actions/checkout@v3
+      ## =================
+      - name: "Install Dependencies"
+        run: "npm install"
+      - name: "Test - Cypress"
+        # run: "npm run test"
+        run: |
+          ls -la
+          echo "Segundo comando de debug"

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { z as schema } from "zod"
+import { z as schema } from "zod";
 
 import { todoRepository } from "@server/repository/todo";
 import { HttpNotFoundError } from "@server/infra/errors";
@@ -40,27 +40,27 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 
 const TodoCreateBodySchema = schema.object({
   content: schema.string(),
-})
+});
 async function create(req: NextApiRequest, res: NextApiResponse) {
-  const body = TodoCreateBodySchema.safeParse(req.body)
+  const body = TodoCreateBodySchema.safeParse(req.body);
 
   // Type Narrowing
-  if(!body.success) {
+  if (!body.success) {
     res.status(400).json({
       error: {
         message: "You need to provide a content to create a TODO",
-        description: body.error.issues
-      }
-    })
-    return
+        description: body.error.issues,
+      },
+    });
+    return;
   }
 
   // Here we have to data
-  const createdTodo = await todoRepository.createByContent(body.data.content)
-  
+  const createdTodo = await todoRepository.createByContent(body.data.content);
+
   res.status(201).json({
     todo: createdTodo,
-  })
+  });
 }
 
 async function toggleDone(req: NextApiRequest, res: NextApiResponse) {

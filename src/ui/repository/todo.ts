@@ -1,4 +1,4 @@
-import { z as schema } from 'zod';
+import { z as schema } from "zod";
 import { TodoSchema, Todo } from "@ui/schema/todo";
 
 interface TodoRepositoryGetParams {
@@ -48,8 +48,6 @@ export async function createByContent(content: string): Promise<Todo> {
       todo: TodoSchema,
     });
     const serverResponseParsed = ServerResponseSchema.safeParse(serverResponse);
-    console.log("🚀 ~ createByContent ~ serverResponseParsed:", serverResponseParsed);
-    
 
     if (!serverResponseParsed.success) {
       throw new Error("Failed to create TODO :(");
@@ -100,7 +98,6 @@ export const todoRepository = {
   deleteById,
 };
 
-
 function parseTodosFromServer(responseBody: unknown): {
   total: number;
   pages: number;
@@ -122,6 +119,7 @@ function parseTodosFromServer(responseBody: unknown): {
           throw new Error("Invalid todo from API");
         }
 
+        // eslint-disable-next-line prettier/prettier
         const { id, content, done, date } = todo as {
           id: string;
           content: string;
